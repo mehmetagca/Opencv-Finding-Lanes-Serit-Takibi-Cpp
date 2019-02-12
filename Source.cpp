@@ -73,7 +73,7 @@ vector<Vec4i> houghLine(/*Mat imgOrg,*/ Mat cannyImg)
 {
 	vector<Vec4i> lines; //vector<cv::Vec<int, 4>> houghlines
 	HoughLinesP(cannyImg, lines, 1, CV_PI / 180, 40, 50, 100);//Treshold:100 - MinlineLength:40 - MaxlineGap:10 -100,10,50 -50,40,10
-															  //Noktadaki KesiÃ¾im - Min Ã‡izgi UzunluÃ°u - 2 Ã‡izgi ArasÃ½ Max BoÃ¾luk
+															  //Noktadaki Kesişim - Min Çizgi Uzunluğu - 2 Çizgi Arası Max Boşluk
 	/*for (int i = 0; i<lines.size(); i++)
 	{
 		Point a = Point(lines[i][0], lines[i][1]);
@@ -146,7 +146,7 @@ Vec4i slopeToPoint(int y1, int y2, Vec2f lineSlope)
 	float intercept = lineSlope[1];
 
 	int x1 = (int) ((y1 - intercept) / slope);//y=mx+b -> x = (y-b)/m
-	int x2 = (int) ((y2 - intercept) / slope);//baÃ¾langÃ½Ã§ta x kÃ½sayken yeni hesaplanan y deÃ°erinde x in tahmini uzayacaÃ°Ã½ koordinatlar hesaplanÃ½yor.
+	int x2 = (int) ((y2 - intercept) / slope);//başlangıçta x kısayken yeni hesaplanan y değerinde x in tahmini uzayacağı koordinatlar hesaplanıyor.
 
 	return { x1, y1, x2, y2 };
 }
@@ -233,9 +233,11 @@ int main()
 	}
 	video.read(videoFrame);
 
-	cout << "FPS: " << video.get(CAP_PROP_POS_FRAMES)<<"*" << video.get(CAP_PROP_FOURCC) <<"*"<<Size(videoFrame.cols, videoFrame.rows) << endl;
+	//cout << "FPS: " << video.get(CAP_PROP_POS_FRAMES)<<" # " << video.get(CAP_PROP_FOURCC) <<" # "<< Size(videoFrame.cols, videoFrame.rows) << endl;
+	
 	VideoWriter videoWrite("sonuc.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 20, Size(videoFrame.cols, videoFrame.rows));
-	//VideoWriter::fourcc('M','J','P','G');
+
+	int i = 0;
 	while (video.read(videoFrame))
 	{
 		//imshow("video", videoFrame);
@@ -258,6 +260,7 @@ int main()
 		imshow("video", newImg);
 
 		videoWrite.write(newImg);
+		cout << ++i << ". frame written." << endl;
 
 		if (waitKey(1) != -1)
 			break;
