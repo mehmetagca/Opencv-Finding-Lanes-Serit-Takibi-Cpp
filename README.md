@@ -14,3 +14,7 @@ OpenCV C++ ile şerit takibi uygulaması.
 4- Hough Line yöntemi ile çizgileri çizme
 
 5- Ortalama çizgileri bulma ve 2 şerit olarak ekrana çizme
+
+## Sonuç
+
+![testresult](https://user-images.githubusercontent.com/27829773/52671568-78026480-2f2c-11e9-8a5a-b5a567e09ccc.PNG)
